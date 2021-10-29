@@ -117,7 +117,7 @@ const Arena = ({ characterNFT }) => {
               <div className="image-content">
                 <h2>{characterNFT.name}</h2>
                 <img
-                  src={characterNFT.imageURI}
+                  src={`https://cloudflare-ipfs.com/ipfs/${characterNFT.imageURI}`}
                   alt={`Character ${characterNFT.name}`}
                 />
                 <div className="health-bar">
