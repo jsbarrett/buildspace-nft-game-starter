@@ -6,6 +6,7 @@ import Arena from './Components/Arena'
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import myEpicGame from './utils/MyEpicGame.json';
 import { ethers } from 'ethers';
+import LoadingIndicator from './Components/LoadingIndicator'
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
@@ -15,6 +16,7 @@ const App = () => {
   // State
   const [currentAccount, setCurrentAccount] = useState(null);
   const [characterNFT, setCharacterNFT] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   // Actions
   const checkIfWalletIsConnected = async () => {
@@ -72,6 +74,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true)
     checkIfWalletIsConnected();
   }, []);
 
@@ -101,6 +104,8 @@ const App = () => {
       } catch (err) {
         console.error(err)
       }
+
+      setIsLoading(false)
     };
 
     /*
@@ -128,6 +133,8 @@ const App = () => {
           </button>
         </div>
       );
+    } else if (isLoading) {
+      return <LoadingIndicator />
     } else if (currentAccount && !characterNFT) {
       return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
     /*
